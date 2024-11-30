@@ -1,7 +1,7 @@
 # A pipeline focuses on deep learning-based non-intrusive load monitoring (NILM)
 
 <div align="center"> <img src="https://github-readme-streak-stats.herokuapp.com/?user=HANILM" /> </div>
-![Visitor Count](https://profile-counter.glitch.me/HANILM/count.svg)
+
 
 
 ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
