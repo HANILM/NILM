@@ -143,8 +143,7 @@ class closedDisaggregator(Disaggregator):
         '''
         self.MODEL_NAME = "pytorch Gan"
         self.window_size = 129
-        self.batchsize =64
-
+        self.batchsize =512
         self.gen_model2 = Generator(self.batchsize, self.window_size,num_meters)
         self.writer = SummaryWriter(directory)
         self.n_critic=5
@@ -357,17 +356,21 @@ class closedDisaggregator(Disaggregator):
         ed = time.time()
         print("Inference Time consumption: {}s.".format(ed - st))
 
-    def postprocess(self, results, train_meter_means, train_meter_stds):
+    def postprocess(self, meter_keys, results, train_meter_means, train_meter_stds):
+
         data = {}
         # package the results, train_meter_means, train_meter_stds together.
 
         for i, (result, mean, std) in enumerate(zip(results, train_meter_means, train_meter_stds)):
             power = result.to('cpu').numpy()
             adjusted_power = self.adjust_power(power, mean, std)
-            data[f'appliance{i + 1}_power'] = adjusted_power
+            if i < len(meter_keys):
+                key_name = meter_keys[i]  # Use predefined keys
+            else:
+                key_name = f'unknown_appliance{i + 1}'  # Fallback for extra results
+            data[f'{key_name}_power'] = adjusted_power
+
         return data
-
-
 
     @staticmethod
     def adjust_power(power, mean, std):
@@ -393,7 +396,6 @@ class closedDisaggregator(Disaggregator):
             file_path = os.path.join(output_path, filename)
             results_df.to_csv(file_path, index=False)
             return file_path
-
 
 
 
