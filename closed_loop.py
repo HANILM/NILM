@@ -321,6 +321,7 @@ class closedDisaggregator(Disaggregator):
         st = time.time()
 
         self.gen_model2.eval()
+        self.gen_model2.cuda()
 
         # Create test dataset and dataloader
         batch_size = mains.shape[0] if batchsize > mains.shape[0] else batchsize
